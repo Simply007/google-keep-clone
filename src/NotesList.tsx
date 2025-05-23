@@ -27,6 +27,10 @@ export default function NotesList() {
   };
 
   const handleDelete = (guid: string) => {
+    if (!window.confirm('Are you sure you want to delete this note?')) {
+      return;
+    }
+
     const updatedNotes = notes.filter((note) => note.guid !== guid);
     saveNotes(updatedNotes);
     setNotes(updatedNotes);
