@@ -1,6 +1,9 @@
-# Google Keep Clone
+# Ondrej's notes
 
-A simple note-taking application inspired by Google Keep, built with React, TypeScript, and Vite.
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/ondrejs-notes?style=for-the-badge)
+
+
+A simple note-taking application inspired by [Google Keep](https://keep.google.com/), built with React, TypeScript, and Vite.
 
 > This repository works as a showcase of various development approaches.
 
@@ -53,6 +56,10 @@ npm run lint
 # or
 yarn lint
 ```
+
+## Deployment
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSimply007%2Fondrejs-notes)
 
 ## License
 
