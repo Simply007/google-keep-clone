@@ -230,7 +230,7 @@ export default function RichText({
                 placeholder: 'Type or paste your content here!'
             }
         };
-    }, [cloud, isLayoutReady]);
+    }, [cloud, isLayoutReady, content]);
 
     useEffect(() => {
         if (editorConfig) {
