@@ -37,3 +37,5 @@ Icon
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
+# dotenv file
+.env

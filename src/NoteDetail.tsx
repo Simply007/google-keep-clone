@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getNotes, saveNotes } from './utils';
 import type { Note } from './types';
+import RichText from './components/RichText';
 
 export default function NoteDetail() {
   const { id } = useParams<{ id: string }>();
@@ -43,12 +44,9 @@ export default function NoteDetail() {
           placeholder="Title"
           onChange={(e) => handleChange('title', e.target.value)}
         />
-        {/* This is where the CKeditor will be */}
-        <textarea
-          className="note-content-textarea"
-          value={note.content}
-          placeholder="Take a note..."
-          onChange={(e) => handleChange('content', e.target.value)}
+        <RichText
+          content={note.content}
+          onChange={(content) => handleChange('content', content)}
         />
         <div className="note-timestamps">
           <small>Created: {new Date(note.created).toLocaleString()}</small>
