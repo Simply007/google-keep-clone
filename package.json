@@ -1,8 +1,12 @@
 {
   "name": "google-keep-clone",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "license": "MIT",
   "type": "module",
+  "author": {
+    "name": "Ondrej Chrastina",
+    "url": "https://ondrej.chrastina.dev"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
