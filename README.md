@@ -30,8 +30,8 @@ A simple note-taking application inspired by [Google Keep](https://keep.google.c
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/google-keep-clone.git
-cd google-keep-clone
+git clone https://github.com/Simply007/ondrejs-notes.git
+cd ondrejs-notes 
 npm install
 # or
 yarn install
