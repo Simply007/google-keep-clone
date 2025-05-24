@@ -48,7 +48,7 @@ export default function NotesList() {
           <div className="note-tile" key={note.guid}>
             <div className="note-tile-content" onClick={() => navigate(`/note/${note.guid}`)}>
               <h2>{note.title || <em>(No Title)</em>}</h2>
-              <p className="note-preview">{note.content.slice(0, 100)}</p>
+              <p className="note-preview" dangerouslySetInnerHTML={{__html: note.content.slice(0, 50) + '...'}}/>
             </div>
             <button className="delete-btn" onClick={() => handleDelete(note.guid)}>Delete</button>
           </div>

@@ -13,3 +13,6 @@ function App() {
 }
 
 export default App
+
+// Cause of the error: 'dotenv' is not defined
+// Cause of the error: 'dotenv' is not defined
