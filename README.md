@@ -29,6 +29,8 @@ A simple note-taking application inspired by [Google Keep](https://keep.google.c
     - AI Assistant
     - Export to PDF
     - Multi-level Lists
+    - Real-time Collaborative Editing (Co-Authoring)
+    - Real-time Collaborative Revision History
 
 > [!TIP]
 > Check the [full configuration and it's preview right in the CKEditor builder](https://ckeditor.com/ckeditor-5/builder/?redirect=portal#installation/NodgNARATAdAbDADBSIAsIRQMwkXAVjTTlMQE4jsMo4BGORIgDkzUWbRQgFMA7FIjDA6YIeLFg6AXUg8oAIzwFsEaUA=)
@@ -51,7 +53,7 @@ A simple note-taking application inspired by [Google Keep](https://keep.google.c
 
 ```bash
 git clone https://github.com/Simply007/ondrejs-notes.git
-cd ondrejs-notes 
+cd ondrejs-notes
 npm install
 # or
 yarn install
@@ -61,9 +63,13 @@ yarn install
 
 ```bash
 cp .env.example .env
-# set VITE_AI_API_KEY variable from https://platform.openai.com/api-keys
-# set VITE_CK_EDITOR_LICENSE_KEY variable from https://portal.ckeditor.com/ > Subscriptions > License keys
 ```
+
+Set:
+
+- `VITE_AI_API_KEY` from <https://platform.openai.com/api-keys>
+- `VITE_CK_EDITOR_LICENSE_KEY` from <https://portal.ckeditor.com> > Subscriptions > License keys
+- `VITE_CLOUD_SERVICES_WEBSOCKET_URL` and `VITE_CLOUD_SERVICE_TOKEN_URL` from <https://portal.ckeditor.com> > Subscription > Cloud environment -> View <YOUR ENVIRONMENT> > CKEditor configuration
 
 ⚠️ The showcase is ready for development purposes. For production environment, you need to implement the [API Proxy endpoint to API key exchange](https://ckeditor.com/docs/ckeditor5/latest/features/ai-assistant/ai-assistant-integration.html#using-proxy-endpoint).
 
@@ -75,7 +81,7 @@ npm run dev
 yarn dev
 ```
 
-The app will be available at [http://localhost:5173](http://localhost:5173).
+🎉 The app is be available at  [http://localhost:5173](http://localhost:5173) 🎉
 
 ## Linting and Formatting
 

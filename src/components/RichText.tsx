@@ -1,6 +1,6 @@
 /**
  * This configuration was generated using the CKEditor 5 Builder. You can modify it anytime using this link:
- * https://ckeditor.com/ckeditor-5/builder/?redirect=portal#installation/NodgNARATAdAbDADBSIAsIRQMwkXAVjTTlMQE4jsMo4BGORIgDkzUWbRQgFMA7FIjDA6YIeLFg6AXUg8oAIzwFsEaUA=
+ * https://ckeditor.com/ckeditor-5/builder/?redirect=portal#installation/NodgNARATAdAbDADBSIAsIRQMwkXEARgFZCo05s5EbsAOB9QunNNAThpQgFMA7FIjDBCYIeLFhCAXUjkQxRAEMeEaUA=
  */
 
 import { useState, useEffect, useRef, useMemo } from 'react';
@@ -24,17 +24,34 @@ if (!LICENSE_KEY) {
  */
 const AI_API_KEY = import.meta.env.VITE_AI_API_KEY;
 if (!AI_API_KEY) {
-    alert('Missing AI_API_KEY key - AI assistant won\'t work.\n Follow README for setup instructions');
+    alert('Missing VITE_AI_API_KEY key - AI assistant won\'t work.\n Follow README for setup instructions');
+}
+
+const CLOUD_SERVICES_TOKEN_URL = import.meta.env.VITE_CLOUD_SERVICE_TOKEN_URL;
+if (!CLOUD_SERVICES_TOKEN_URL) {
+    alert('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
+    throw new Error('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
+}
+const CLOUD_SERVICES_WEBSOCKET_URL = import.meta.env.VITE_CLOUD_SERVICES_WEBSOCKET_URL;
+if (!CLOUD_SERVICES_WEBSOCKET_URL) {
+    alert('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
+    throw new Error('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
 }
 
 export default function RichText({
+    documentId,
     content,
     onChange }: {
+        documentId: string,
         content: string,
         onChange: (newContent: string) => void
     }) {
+    const editorPresenceRef = useRef(null);
     const editorContainerRef = useRef(null);
     const editorRef = useRef(null);
+    const editorRevisionHistoryRef = useRef(null);
+    const editorRevisionHistoryEditorRef = useRef(null);
+    const editorRevisionHistorySidebarRef = useRef(null);
     const [isLayoutReady, setIsLayoutReady] = useState(false);
     const cloud = useCKEditorCloud({ version: '45.1.0', premium: true });
 
@@ -77,7 +94,11 @@ export default function RichText({
             ExportPdf,
             FormatPainter,
             MultiLevelList,
-            OpenAITextAdapter
+            OpenAITextAdapter,
+            PresenceList,
+            RealTimeCollaborativeEditing,
+            RealTimeCollaborativeRevisionHistory,
+            RevisionHistory
         } = cloud.CKEditorPremiumFeatures;
 
         return {
@@ -87,6 +108,8 @@ export default function RichText({
                     items: [
                         'undo',
                         'redo',
+                        '|',
+                        'revisionHistory',
                         '|',
                         'aiCommands',
                         'aiAssistant',
@@ -137,6 +160,10 @@ export default function RichText({
                     MultiLevelList,
                     OpenAITextAdapter,
                     Paragraph,
+                    PresenceList,
+                    RealTimeCollaborativeEditing,
+                    RealTimeCollaborativeRevisionHistory,
+                    RevisionHistory,
                     Strikethrough,
                     Subscript,
                     Superscript,
@@ -149,6 +176,13 @@ export default function RichText({
                             Authorization: 'Bearer ' + AI_API_KEY
                         }
                     }
+                },
+                cloudServices: {
+                    tokenUrl: CLOUD_SERVICES_TOKEN_URL,
+                    webSocketUrl: CLOUD_SERVICES_WEBSOCKET_URL
+                },
+                collaboration: {
+                    channelId: documentId
                 },
                 exportPdf: {
                     stylesheets: [
@@ -236,14 +270,25 @@ export default function RichText({
                         reversed: true
                     }
                 },
-                placeholder: 'Type or paste your content here!'
+                placeholder: 'Type or paste your content here!',
+                presenceList: {
+                    container: editorPresenceRef.current
+                },
+                revisionHistory: {
+                    editorContainer: editorContainerRef.current,
+                    viewerContainer: editorRevisionHistoryRef.current,
+                    viewerEditorElement: editorRevisionHistoryEditorRef.current,
+                    viewerSidebarContainer: editorRevisionHistorySidebarRef.current,
+                    resumeUnsavedRevision: true
+                }
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         };
-    }, [cloud, isLayoutReady, content]);
+    }, [cloud, isLayoutReady, content, documentId]);
 
     return (
         <div className="main-container">
+            <div className="presence" ref={editorPresenceRef}></div>
             <div className="editor-container editor-container_classic-editor" ref={editorContainerRef}>
                 <div className="editor-container__editor">
                     <div ref={editorRef}>{ClassicEditor && editorConfig && <CKEditor
@@ -255,6 +300,12 @@ export default function RichText({
                         }}
                     />}
                     </div>
+                </div>
+            </div>
+            <div className="revision-history" ref={editorRevisionHistoryRef}>
+                <div className="revision-history__wrapper">
+                    <div className="revision-history__editor" ref={editorRevisionHistoryEditorRef}></div>
+                    <div className="revision-history__sidebar" ref={editorRevisionHistorySidebarRef}></div>
                 </div>
             </div>
         </div>
