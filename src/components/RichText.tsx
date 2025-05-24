@@ -8,8 +8,12 @@ import { CKEditor, useCKEditorCloud } from '@ckeditor/ckeditor5-react';
 
 import './RichText.css';
 
-const LICENSE_KEY =
-    'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDkyNTQzOTksImp0aSI6ImEyZmM5OTQxLTdlYTAtNGFhYi1iMjkwLThjZDAxZDgyZGY2NiIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjcwYjYyMWY0In0.3ykf7YcQUvrJ3t_TdPyS__2HRWvNq9QbdGU4EVU_bTmki3Dqcb2hF3E0IjZZzaaVjazCwoaBv4URI7DlrQSV_w';
+const LICENSE_KEY = import.meta.env.VITE_CK_EDITOR_LICENSE_KEY;
+if (!LICENSE_KEY) {
+    alert('Missing VITE_CK_EDITOR_LICENSE_KEY key - CKEditor will not work.');
+    throw new Error("Missing VITE_CK_EDITOR_LICENSE_KEY key - CKEditor will not work.");
+}
+
 
 /**
  * USE THIS INTEGRATION METHOD ONLY FOR DEVELOPMENT PURPOSES.
@@ -20,9 +24,8 @@ const LICENSE_KEY =
  */
 const AI_API_KEY = import.meta.env.VITE_AI_API_KEY;
 if (!AI_API_KEY) {
-    throw new Error('Missing AI API key');
+    alert('Missing AI_API_KEY key - AI assistant won\'t work.\n Follow README for setup instructions');
 }
-
 
 export default function RichText({
     content,
@@ -228,7 +231,7 @@ export default function RichText({
                     }
                 },
                 placeholder: 'Type or paste your content here!'
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         };
     }, [cloud, isLayoutReady, content]);

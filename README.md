@@ -2,7 +2,6 @@
 
 ![Vercel Deploy](https://deploy-badge.vercel.app/vercel/ondrejs-notes?style=for-the-badge)
 
-
 A simple note-taking application inspired by [Google Keep](https://keep.google.com/), built with React, TypeScript, and Vite.
 
 > This repository works as a showcase of various development approaches.
@@ -17,6 +16,25 @@ A simple note-taking application inspired by [Google Keep](https://keep.google.c
 - Linting with ESLint
 - Notes are being stored in browser local storage
 
+### Editing a note using CKEditor
+
+- [CKEditor](https://ckeditor.com/) (classic editor style) is used to edit notes with following features:
+  - Free features
+    - Basic text formatting (italics, bold, underline, ...)
+    - Typography (Headings, Links, Code Blocks, ...)
+    - Lists (Ordered, Unordered, Todo)
+    - Find & Replace
+  - Premium features
+    - Format Painter
+    - AI Assistant
+    - Export to PDF
+    - Multi-level Lists
+
+> [!TIP]
+> Check the [full configuration and it's preview right in the CKEditor builder](https://ckeditor.com/ckeditor-5/builder/?redirect=portal#installation/NodgNARATAdAbDADBSIAsIRQMwkXAVjTTlMQE4jsMo4BGORIgDkzUWbRQgFMA7FIjDA6YIeLFg6AXUg8oAIzwFsEaUA=)
+>
+> [![CKEditor Configuration](https://img.shields.io/badge/CKEditor%20configuration-8A2BE2?style=for-the-badge)](https://ckeditor.com/ckeditor-5/builder/?redirect=portal#installation/NodgNARATAdAbDADBSIAsIRQMwkXAVjTTlMQE4jsMo4BGORIgDkzUWbRQgFMA7FIjDA6YIeLFg6AXUg8oAIzwFsEaUA=)
+
 ![Listing](./assets/listing.png)
 ![Detail](./assets/detail.png)
 
@@ -26,6 +44,8 @@ A simple note-taking application inspired by [Google Keep](https://keep.google.c
 
 - [Node.js](https://nodejs.org/) (v16 or higher)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [OpenAI API Key](https://platform.openai.com/api-keys)
+- CKEditor account with premium features ([Free trial - no credit card required](https://ckeditor.com/docs/trial/latest/index.html))
 
 ### Installation
 
@@ -36,6 +56,16 @@ npm install
 # or
 yarn install
 ```
+
+### Prepare environment variables
+
+```bash
+cp .env.example .env
+# set VITE_AI_API_KEY variable from https://platform.openai.com/api-keys
+# set VITE_CK_EDITOR_LICENSE_KEY variable from https://portal.ckeditor.com/ > Subscriptions > License keys
+```
+
+⚠️ The showcase is ready for development purposes. For production environment, you need to implement the [API Proxy endpoint to API key exchange](https://ckeditor.com/docs/ckeditor5/latest/features/ai-assistant/ai-assistant-integration.html#using-proxy-endpoint).
 
 ### Running the App
 
