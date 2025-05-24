@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getNotes, saveNotes } from './utils';
+import { generateGUID, getNotes, saveNotes } from './utils';
 import type { Note } from './types';
 import RichText from './components/RichText';
 
@@ -10,9 +10,23 @@ export default function NoteDetail() {
   const [note, setNote] = useState<Note | undefined>();
 
   useEffect(() => {
+    if(!id) {
+      navigate('/');
+      return;
+    }
     const found = getNotes().find((n) => n.guid === id);
     if (!found) {
-      navigate('/');
+      const now = Date.now();
+      const new_note = {
+        guid: id,
+        // The title is not shared - you can have your own naming
+        title: '[SHARED] New note',
+        // Leave this empty - the content will be loaded based on the ID from CKEditor server
+        content: '', 
+        created: now,
+        modified: now,
+      };
+      setNote(new_note);
     } else {
       setNote(found);
     }
@@ -26,8 +40,15 @@ export default function NoteDetail() {
       modified: Date.now(),
     };
     setNote(updatedNote);
-    const notes = getNotes().map((n) => (n.guid === note.guid ? updatedNote : n));
-    saveNotes(notes);
+    
+    const exists = (notes: Note[], quid: string) => notes.some(n => n.guid === quid)
+    const currentNotes = getNotes()
+
+    const newNotes = exists(currentNotes, note.guid)
+      ? currentNotes.map((n: Note) => (n.guid === note.guid ? updatedNote : n))
+      : [...currentNotes, updatedNote]
+
+    saveNotes(newNotes);
   };
 
   if (!note) return null;
@@ -45,6 +66,7 @@ export default function NoteDetail() {
           onChange={(e) => handleChange('title', e.target.value)}
         />
         <RichText
+          documentId={id || generateGUID()}
           content={note.content}
           onChange={(content) => handleChange('content', content)}
         />
