@@ -24,12 +24,19 @@ if (!LICENSE_KEY) {
  */
 const AI_API_KEY = import.meta.env.VITE_AI_API_KEY;
 if (!AI_API_KEY) {
-    alert('Missing AI_API_KEY key - AI assistant won\'t work.\n Follow README for setup instructions');
+    alert('Missing VITE_AI_API_KEY key - AI assistant won\'t work.\n Follow README for setup instructions');
 }
 
-const CLOUD_SERVICES_TOKEN_URL =
-    'https://63gyxp52hgoh.cke-cs.com/token/dev/4c658a98ec03b12b106002bb4e3c7739c1b4f04649a5ef2808df66656723?limit=10';
-const CLOUD_SERVICES_WEBSOCKET_URL = 'wss://63gyxp52hgoh.cke-cs.com/ws';
+const CLOUD_SERVICES_TOKEN_URL = import.meta.env.VITE_CLOUD_SERVICE_TOKEN_URL;
+if (!CLOUD_SERVICES_TOKEN_URL) {
+    alert('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
+    throw new Error('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
+}
+const CLOUD_SERVICES_WEBSOCKET_URL = import.meta.env.VITE_CLOUD_SERVICES_WEBSOCKET_URL;
+if (!CLOUD_SERVICES_WEBSOCKET_URL) {
+    alert('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
+    throw new Error('Missing VITE_CLOUD_SERVICE_TOKEN_URL key - AI assistant won\'t work.\n Follow README for setup instructions');
+}
 
 export default function RichText({
     documentId,
@@ -277,7 +284,7 @@ export default function RichText({
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
         };
-    }, [cloud, isLayoutReady, content]);
+    }, [cloud, isLayoutReady, content, documentId]);
 
     return (
         <div className="main-container">
