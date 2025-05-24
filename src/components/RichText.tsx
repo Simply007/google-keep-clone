@@ -72,7 +72,13 @@ export default function RichText({
             TodoList,
             Underline
         } = cloud.CKEditor;
-        const { AIAssistant, ExportPdf, FormatPainter, MultiLevelList, OpenAITextAdapter } = cloud.CKEditorPremiumFeatures;
+        const {
+            AIAssistant,
+            ExportPdf,
+            FormatPainter,
+            MultiLevelList,
+            OpenAITextAdapter
+        } = cloud.CKEditorPremiumFeatures;
 
         return {
             ClassicEditor,
