@@ -97,6 +97,20 @@ yarn lint
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSimply007%2Fondrejs-notes)
 
+## Tutorials
+
+### Starter for this project
+
+[![AI Vibe-Coding a Google-Keep-Style Notes App | Vite + React + TypeScript → Deploy on Vercel](https://img.youtube.com/vi/V02w3CK8KG4/maxresdefault.jpg)](https://www.youtube.com/watch?v=V02w3CK8KG4&ab_channel=Ond%C5%99ejChrastina "Watch on YouTube")
+
+### CKEditor 5 Integration
+
+[![Add CKEditor 5 to a React Notes App | Rich-Text, AI Assistant & PDF Export (Vite + TS)](https://img.youtube.com/vi/LAGl6orIGRw/maxresdefault.jpg)](https://www.youtube.com/watch?v=LAGl6orIGRw&ab_channel=Ond%C5%99ejChrastina "Watch on YouTube")
+
+### Real-Time Collaboration with CKEditor 5
+
+[![Add Real-Time Collaboration to CKEditor 5 in React | Notes App Tutorial (Vite + TS + Vercel)](https://img.youtube.com/vi/qn4FthLFvK4/maxresdefault.jpg)](https://www.youtube.com/watch?v=qn4FthLFvK4&ab_channel=Ond%C5%99ejChrastina "Watch on YouTube")
+
 ## License
 
 This project is licensed under the MIT License.
